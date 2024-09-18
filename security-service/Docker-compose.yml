@@ -1,0 +1,23 @@
+
+services:
+  postgresql-security:
+    container_name: userPostgres
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=Login
+    volumes:
+      - userData:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+
+    networks:
+      - security-network
+
+networks:
+  security-network:
+    driver: bridge
+
+volumes:
+  userData:

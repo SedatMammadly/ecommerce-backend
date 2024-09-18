@@ -1,0 +1,22 @@
+services:
+  postgresql-order:
+    container_name: orderPostgres
+    image: postgres:latest
+    environment:
+     - POSTGRES_USER=order
+     - POSTGRES_PASSWORD=order1234
+     - POSTGRES_DB=Order
+    ports:
+      - "5439:5432"
+    volumes:
+      - orderData:/var/lib/postgresql/data
+    networks:
+     - order-network
+
+networks:
+  order-network:
+    driver: bridge
+
+volumes:
+  orderData: {}
+

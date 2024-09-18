@@ -1,0 +1,48 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/api/v1/product/**
+          filters:
+          - JwtAuthenticationFilter2
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/v1/order/**
+          filters:
+           - JwtAuthenticationFilter2
+        - id: security-service
+          uri: lb://security-service
+          predicates:
+            - Path=/api/v1/auth/**
+          filters:
+            - JwtAuthenticationFilter2
+        - id: store-service
+          uri: lb://store-service
+          predicates:
+            - Path=/api/v1/store/**
+          filters:
+          - JwtAuthenticationFilter2
+
+
+logging:
+  level:
+   org.springframework.cloud.gateway: TRACE
+   reactor.netty.http.client: TRACE
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
+
+server:
+  port: 9090

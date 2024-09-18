@@ -1,0 +1,23 @@
+
+services:
+  postgresql-product:
+    container_name: productPostgres
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=product
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=Product
+    volumes:
+      - productData:/var/lib/postgresql/data
+    ports:
+      - "5437:5432"
+
+    networks:
+      - product-network
+
+networks:
+  product-network:
+    driver: bridge
+
+volumes:
+  productData:

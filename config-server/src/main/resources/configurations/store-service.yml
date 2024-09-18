@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: store-service
+  datasource:
+    url: jdbc:postgresql://localhost:5436/Store
+    username: store
+    password: store1234
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
+
+server:
+  port: 8082

@@ -1,0 +1,20 @@
+services:
+  postgresql-store:
+    container_name: storePostgres
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=store
+      - POSTGRES_PASSWORD=store1234
+      - POSTGRES_DB=Store
+    volumes:
+    - storeData:/var/lib/postgresql/data
+    ports:
+     - "5436:5432"
+    networks:
+     - store-network
+
+networks:
+  store-network:
+    driver: bridge
+volumes:
+  storeData: {}
